@@ -4,9 +4,14 @@ const crypto = require('crypto');
 const { URL, URLSearchParams } = require('url');
 
 const PORT = process.env.PORT || 3000;
-const CLIENT_ID = process.env.SHOPIFY_CLIENT_ID || '5cc371cf18fe48a4fdb91ba24dfa03c5';
-const CLIENT_SECRET = process.env.SHOPIFY_CLIENT_SECRET || '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';
+const CLIENT_ID = process.env.SHOPIFY_CLIENT_ID;
+const CLIENT_SECRET = process.env.SHOPIFY_CLIENT_SECRET;
 const APP_URL = process.env.APP_URL || 'https://shopify-app-server-nw9r.onrender.com';
+
+if (!CLIENT_ID || !CLIENT_SECRET) {
+  console.error('Error: SHOPIFY_CLIENT_ID y SHOPIFY_CLIENT_SECRET son requeridos');
+  process.exit(1);
+}
 const REDIRECT_URI = `${APP_URL}/auth/callback`;
 const SCOPES = 'read_products,read_orders';
 
